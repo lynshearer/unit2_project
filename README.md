@@ -44,7 +44,8 @@ The
 ## Record of Tasks
 | Task No | Planned Action                                                | Planned Outcome                                                                                                 | Time estimate | Target completion date | Criterion |
 |---------|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|---------------|------------------------|-----------|
-| 1       | Write the Problem context                        | 10min         | Nov 22                 | A         |
+| 1       | Write the Problem context                        | 10 min         | Nov 21                 | A         |
+| 2       | Compile bill of materials                        | 20 min         | Nov 21                 | A         |
 
 ## Test Plan
 
