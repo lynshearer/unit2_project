@@ -47,6 +47,8 @@ Lyn and Kris will design and make a poster for a client who is xxx. The poster w
 |---------|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|---------------|------------------------|-----------|
 | 1       | Write the problem context                        | Have a clear description of the problem.         | 20 mins                 | Nov 21         | A
 | 2       | Create bill of materials                        | Compile all necessary materials.         | 20 mins                 | Nov 21         | A
+| 3       | Complete Design Statement                        | A clear outline of the final goal of the project and components that need to be completed.         | 20 mins                 | Nov 21         | A
+
 
 ## Test Plan
 
