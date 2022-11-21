@@ -17,6 +17,7 @@ The
 
 
 **Design statement**
+Lyn and Kris will design and make a poster for a client who is xxx. The poster will include the system diagram and the visual representation and model of humidity and temperature in an ISAK room for 48 hours, and a prediction of a subsquent 12 hours, it will also present the health consequences for the humidity and temperature levels. This is achieved with the software Python in a Raspberry Pi. It will take approximately 1 month to make and will be evaluated according to the criteria xxx.
 
 [^1]: Industries, Adafruit. “DHT11 Basic Temperature-Humidity Sensor + Extras.” Adafruit Industries Blog RSS, https://www.adafruit.com/product/386. 
 [^2]: Nelson, Carter. “Modern Replacements for DHT11 and dht22 Sensors.” Adafruit Learning System, https://learn.adafruit.com/modern-replacements-for-dht11-dht22-sensors/what-are-better-alternatives.   
