@@ -48,6 +48,8 @@ Lyn and Kris will design and make a poster for a client who is xxx. The poster w
 | 1       | Write the problem context                        | Have a clear description of the problem.         | 20 mins                 | Nov 21         | A
 | 2       | Create bill of materials                        | Compile all necessary materials.         | 20 mins                 | Nov 21         | A
 | 3       | Complete Design Statement                        | A clear outline of the final goal of the project and components that need to be completed.         | 20 mins                 | Nov 21         | A
+| 4       | Collect materials and sign scope of work                        | Aquire all materials necessary in order to create weather station in dormitory and sign out materials with intention of only creating the weather station for the client.         | 15 mins                 | Nov 25         | A
+
 
 
 ## Test Plan
