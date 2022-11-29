@@ -50,7 +50,7 @@ Lyn and Kris will design and make a poster for a client who is xxx. The poster w
 | 3       | Complete Design Statement                        | A clear outline of the final goal of the project and components that need to be completed.         | 20 mins                 | Nov 21         | A
 | 4       | Collect materials and sign scope of work                        | Aquire all materials necessary in order to create weather station in dormitory and sign out materials with intention of only creating the weather station for the client.         | 15 mins                 | Nov 25         | A
 | 5       | Download necessary libraries and applications.                        | Prepare computer to receive information from sensor and preparation for future coding.         | 20 mins                 | Nov 25         | A
-| 6       | Connect raspberry pi to computer and test run of sensors.                        | Make sure sensors and raspberry pi are working properly. Complete preliminary construction of weatehr station         | 90 mins                 | Nov 29         | B
+| 6       | Connect raspberry pi to computer and test run of sensors.                        | Make sure sensors and raspberry pi are working properly. Complete preliminary construction of weather station         | 90 mins                 | Nov 29         | B
 
 
 ## Test Plan
