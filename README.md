@@ -51,6 +51,7 @@ Lyn and Kris will design and make a poster for a client who is xxx. The poster w
 | 4       | Collect materials and sign scope of work                        | Aquire all materials necessary in order to create weather station in dormitory and sign out materials with intention of only creating the weather station for the client.         | 15 mins                 | Nov 25         | A
 | 5       | Download necessary libraries and applications.                        | Prepare computer to receive information from sensor and preparation for future coding.         | 20 mins                 | Nov 25         | A
 | 6       | Connect raspberry pi to computer and test run of sensors.                        | Make sure sensors and raspberry pi are working properly. Complete preliminary construction of weather station         | 90 mins                 | Nov 29         | B
+| 7       | Create MVP (Minimum Viable Product).                        | Test basic product before adding features to make sure the basic structure and features of product works properly before moving towards final, complete product.         | 60 mins                 | Nov 30         | C
 
 
 ## Test Plan
