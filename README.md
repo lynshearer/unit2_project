@@ -62,6 +62,12 @@ We will design and make a poster for the client who is Kris san. The poster will
 ## Test Plan
 | Software Test Type | Input | Process | Planned Output  |
 |------|-------------|----------|---------|
+| Integration Testing | Raspberry Pi and VNC Viewer | 1. Download vnc viewer. 2. Input raspberry pi address into vnc viewer. 3. Access raspberry pi through VNC viewer using username and password. | VNC viewer will authenticate username and password and be able to connect to raspberry pi remotely. |
+| Unit Testing | Code to receive information from DHT sensor | 1. Run code. 2. Wait for output from DHT sensor. | Confirm that DHT sensor is functioning properly.|
+| Performance Testing | Code to receive humidity and temperature data from DHT sensors | 1. Run code. 2. Measure response time. | Code will run and data will be collected and printed on the computer monitor within 5 seconds.|
+| Unit Testing | Code for appending humidity and temperature data to csv file | 1. Run code. | A new csv file will be created for humidity and temperature (humidity.csv and temperatures.csv). Data from DHT sensors will be appended to csv files. |
+| Integration Testing | Crontab and VNC Viewer | 1. Run code. 2. Wait to see code runs every 5 minutes and humidity and temperature data is appended to csv file every 5 minutes. | Temperature and humidity data is appended to designated csv file every 5 minutes. Information appended includes data from each of the four sensors, average of data and date and time that data is appended to file.|
+
 
 # Criteria C: Development
 
