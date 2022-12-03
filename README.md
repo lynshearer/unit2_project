@@ -1,8 +1,5 @@
-# Unit 2 Project
+# Unit 2 Project: A Distributed Weather Station for ISAK
 ![b93685101c1460fc](https://user-images.githubusercontent.com/100017195/202971624-5e583f4a-3fc9-4300-b590-80c0c5aa6fce.jpg)
-
-
-# Unit 2: A Distributed Weather Station for ISAK
 
 ## Criteria A: Planning
 
@@ -16,7 +13,7 @@ Considering the client requirements an adequate solution includes a low cost sen
 Considering the budgetary constrains of the client and the hardware requirements, the software tool that I proposed for this solution is Python. Python is open source, it is mature and supported in mutiple platforms (platform-independent) including macOS, Windows, Linux and can also be used to program the Arduino microprocessor [^5][^6]. In comparison to the alternative C or C++, which share similar features, Python is a High level programming language (HLL) with high abstraction [^7]. For example, memory management is automatic in Python whereas it is responsability of the C/C++ developer to allocate and free up memory [^7], this could result in faster applications but also memory problems. In addition a HLL language will allow me and future developers extend the solution or solve issues proptly.
 
 **Design statement**
-We will design and make a poster for a client who is Kris san. The poster will include the system diagram and the visual representation and model of humidity and temperature in an ISAK room for 48 hours, and a prediction of a subsquent 12 hours, it will also present the health consequences for the humidity and temperature levels. This is achieved with the software Python in a Raspberry Pi. It will take approximately 1 month to make and will be evaluated according to the criteria xxx.
+We will design and make a poster for the client who is Kris san. The poster will include the system diagram and the visual representation and model of humidity and temperature in an ISAK room for 48 hours, and a prediction of a subsquent 12 hours, it will also present the health consequences for the humidity and temperature levels. This is achieved with the software Python in a Raspberry Pi. It will take approximately 1 month to make and will be evaluated according to the criteria xxx.
 
 [^1]: Industries, Adafruit. “DHT11 Basic Temperature-Humidity Sensor + Extras.” Adafruit Industries Blog RSS, https://www.adafruit.com/product/386. 
 [^2]: Nelson, Carter. “Modern Replacements for DHT11 and dht22 Sensors.” Adafruit Learning System, https://learn.adafruit.com/modern-replacements-for-dht11-dht22-sensors/what-are-better-alternatives.   
