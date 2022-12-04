@@ -75,7 +75,25 @@ We will design and make a poster for the client who is Kris san. The poster will
 
 ## List of techniques used
 
-## Development
+## Computer Thinkings
+
+## MVP-Minimum Viable Product
+We created a MVP as a prototype of how the temperature and humidity data can be measured and collected. The MVP runs on Python code on Raspberry Pi which is connected to one DHT sensor. The code allows the Raspberry Pi to read one set of temperature and humidity data from the DHT sensor, and display the data as an output in the terminal. For more details, please refer to the Python code below.
+
+```.py
+import Adafruit_DHT
+import time
+
+DHT_SENSOR = Adafruit_DHT.DHT11
+PINS=[23, 18, 15, 14]
+
+
+for pin in PINS:
+   humidity, temperature = None, None
+   while humidity is None or temperature is None:
+       humidity, temperature= Adafruit_DHT.read_retry(DHT_SENSOR, pin)
+   print(f"PIN No. {pin}: ""Humidity: {} %, Temperature: {} C".format(humidity, temperature))
+```
 
 
 # Criteria D: Functionality
