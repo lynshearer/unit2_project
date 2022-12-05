@@ -53,7 +53,8 @@ We will design and make a poster for the client who is Kris san. The poster will
 | 10       | Set up cron tab.                        | In order to have DHT sensors send data to computer at regular interval of 5 minutes.        | 30 mins                 | Dec 02         | C
 | 11       | Create code that saves temperature and humidity data to csv and send to server.                        | Humidity and temperature data sent to server every five minutes. Humidity and temperature data saved to designated csv files every 5 minutes.        | 60 mins                 | Dec 02         | C
 | 12       | Run code for 48 hours in order to collect temperature and humidity data in R3-10A.                        | Obtain humidity and temperature data from R3-10A for 48 hours at 5 minute intervals.        | 48 hours                 | Dec 02         | C
-
+| 13       | Create 3 flow diagrams of aspects of code.                        | In order to clearly display in order to clearly display the algorithms used in the product and show how the product was developed.        | xxx mins                 | Dec 05-xx         | B
+| 14       | Research safe humidity and temperature levels.                        | Determine whether humidity and temperature levels on the UWC ISAK campusa are healthy/safe or unhealthy/unsafe.        | 20 mins                 | Dec 05         | D
 
 
 ## Test Plan
