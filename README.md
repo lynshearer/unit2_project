@@ -55,7 +55,8 @@ We will design and make a poster for the client who is Kris san. The poster will
 | 12       | Run code for 48 hours in order to collect temperature and humidity data in R3-10A.                        | Obtain humidity and temperature data from R3-10A for 48 hours at 5 minute intervals.        | 48 hours                 | Dec 02         | C
 | 13       | Create 3 flow diagrams of aspects of code.                        | In order to clearly display in order to clearly display the algorithms used in the product and show how the product was developed.        | xxx mins                 | Dec 05-xx         | B
 | 14       | Research safe humidity and temperature levels.                        | Determine whether humidity and temperature levels on the UWC ISAK campusa are healthy/safe or unhealthy/unsafe.        | 20 mins                 | Dec 05         | D
-
+| 15       | coding the code for getting data from school sensors | 45 mins     | Dec. 06   | C
+| 16       | Adding codes of mvp, server initialization, and getting data from school sensor | 20 mins     | Dec. 06   | C
 
 ## Test Plan
 | Software Test Type | Input | Process | Planned Output  |
@@ -81,7 +82,10 @@ We will design and make a poster for the client who is Kris san. The poster will
 
 ## Computer Thinkings
 
-## MVP-Minimum Viable Product
+## Code development
+Below are the developments of the Python code being programmed for the project.
+
+### MVP-Minimum Viable Product
 We created a MVP as a prototype of how the temperature and humidity data can be measured and collected. The MVP runs on Python code on Raspberry Pi which is connected to one DHT sensor. The code allows the Raspberry Pi to read one set of temperature and humidity data from the DHT sensor, and display the data as an output in the terminal. For more details, please refer to the Python code below.
 
 Link to MVP video: https://www.youtube.com/watch?v=iYga3GLq-A4
@@ -101,6 +105,82 @@ for pin in PINS:
    print(f"PIN No. {pin}: ""Humidity: {} %, Temperature: {} C".format(humidity, temperature))
 ```
 
+### Server initialization
+Logging in, registering and creating 8 sensors in the server. Code is as below:
+```.py
+import requests
+# username+password
+user={"username":"Lyn_Kris","password":"R310BestHouse"}
+
+# register
+req=requests.post('http://192.168.6.142/register',json=user)
+print(req.json())
+
+# login
+req=requests.post('http://192.168.6.142/login',json=user)
+access_token = req.json()['access_token']
+print(f"token: {access_token}")
+
+# add temperature sensor 1
+auth = {'Authorization':f"Bearer {access_token}"}
+new_sensor = {"type": "Temperature", "location": "R3-10A", "name": "temp_lyn_kris_1","unit":"C"}
+r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
+print(r.json())
+# add temperature sensor 2
+new_sensor = {"type": "Temperature", "location": "R3-10A", "name": "temp_lyn_kris_2","unit":"C"}
+r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
+print(r.json())
+# add temperature sensor 3
+new_sensor = {"type": "Temperature", "location": "R3-10A", "name": "temp_lyn_kris_3","unit":"C"}
+r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
+print(r.json())
+# add temperature sensor 4
+new_sensor = {"type": "Temperature", "location": "R3-10A", "name": "temp_lyn_kris_4","unit":"C"}
+r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
+print(r.json())
+
+# add humidity sensor 1
+new_sensor = {"type": "Humidity", "location": "R3-10A", "name": "hum_lyn_kris_1","unit":"%"}
+r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
+print(r.json())
+# add humidity sensor 2
+new_sensor = {"type": "Humidity", "location": "R3-10A", "name": "hum_lyn_kris_2","unit":"%"}
+r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
+print(r.json())
+# add humidity sensor 3
+new_sensor = {"type": "Humidity", "location": "R3-10A", "name": "hum_lyn_kris_3","unit":"%"}
+r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
+print(r.json())
+# add humidity sensor 4
+new_sensor = {"type": "Humidity", "location": "R3-10A", "name": "hum_lyn_kris_4","unit":"%"}
+r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
+print(r.json())
+```
+
+### Get data from school server
+We need to get the temperature and humidity datas that the sensors at schools collected from the server and store them in csv files. Below is the code:
+
+```.py
+# This program gets the time and value of humidity/temperature and stores them in separate csv files.
+import requests
+import csv
+
+req=requests.get('http://192.168.6.142/readings')
+readings=req.json()['readings']
+readings=readings[0]
+
+for i in readings:
+    if i['sensor_id']==4: # humidity sensor
+        with open("school_humidity.csv", "a") as file:
+            writer = csv.writer(file)
+            writer.writerow([i['datetime'],i['value']])
+
+for i in readings:
+    if i['sensor_id']==5: # temperature sensor
+        with open("school_temperature.csv", "a") as file:
+            writer = csv.writer(file)
+            writer.writerow([i['datetime'],i['value']])
+```
 
 # Criteria D: Functionality
 
