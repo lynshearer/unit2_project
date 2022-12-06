@@ -80,7 +80,24 @@ We will design and make a poster for the client who is Kris san. The poster will
 
 ## List of techniques used
 
-## Computer Thinkings
+## Computational Thinkings
+
+Algorithms: In the initial code and MVP, we utilized a while loop in order for the code to loop and take readings at specific intervals. This was inefficient because the task is to get readings at a 5 minute interval for 48 hours, but with a while loop, if the computer was closed or the server lost connection, the code would stop running and therefore stop taking the necessary readings. In order to avoid having to keep the computer and VNC application running actively for 48 hours, we utilized a simple tool that can fix this problem, a crontab task through the raspberry pi terminal in order to create a task that would run the code every five minutes. 
+
+Code before:
+```.py
+while True:
+    humidity, temperature = Adafruit_DHT.read(DHT_SENSOR,DHT_PIN)
+    if humidity is not None and temperature is not None:
+        print("Temp={0:0.1f}C Humidity={1:0.1f}%".format(temperature, humidity))
+    else:
+        print("Sensor failure, check wiring")
+    time.sleep(3);
+```
+Crontab utilization:
+The utilization of crontab, as shown below, allows the code to run every 5 minutes (therefore taking readings and posting them to the server consistently at the aforementioned interval) until the crontab is deleted. 
+
+![Screen Shot 2022-12-06 at 14 14 20 Small](https://user-images.githubusercontent.com/111893043/205823869-357b16d5-a115-4512-93ab-38a5255afbe6.jpeg)
 
 ## Code development
 Below are the developments of the Python code being programmed for the project.
