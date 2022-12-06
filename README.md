@@ -55,8 +55,8 @@ We will design and make a poster for the client who is Kris san. The poster will
 | 12       | Run code for 48 hours in order to collect temperature and humidity data in R3-10A.                        | Obtain humidity and temperature data from R3-10A for 48 hours at 5 minute intervals.        | 48 hours                 | Dec 02         | C
 | 13       | Create 3 flow diagrams of aspects of code.                        | In order to clearly display in order to clearly display the algorithms used in the product and show how the product was developed.        | xxx mins                 | Dec 05-xx         | B
 | 14       | Research safe humidity and temperature levels.                        | Determine whether humidity and temperature levels on the UWC ISAK campusa are healthy/safe or unhealthy/unsafe.        | 20 mins                 | Dec 05         | D
-| 15       | coding the code for getting data from school sensors | 45 mins     | Dec. 06   | C
-| 16       | Adding codes of mvp, server initialization, and getting data from school sensor | 20 mins     | Dec. 06   | C
+| 15       | Coding the code for getting data from school sensors.                        | In order to retrieve posted data from the server to apply to future codes and models.        | 45 mins                 | Dec 06         | C
+| 16       | Adding codes of mvp, server initialization, and getting data from school sensor.                        | To make sure product development information is updated to Criteria C. Displays the details from how we created our product.        | 20 mins                 | Dec 06         | C
 
 ## Test Plan
 | Software Test Type | Input | Process | Planned Output  |
