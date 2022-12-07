@@ -39,7 +39,7 @@ Considering the budgetary constrains of the client and the hardware requirements
 
 ## Flow Diagram 2 - Server Creation
 ![Untitled-19](https://user-images.githubusercontent.com/111893043/206170522-88960069-42a2-4ed3-b9d1-0e4238888a66.jpg)
-![Untitled-20](https://user-images.githubusercontent.com/111893043/206170632-3ed0f7db-f351-4eb8-a30a-9d45fa776430.jpg)
+![Untitled-20 2](https://user-images.githubusercontent.com/111893043/206170857-ffc2d2b3-cc9b-4081-99c3-c8092929e8d7.jpg)
 
 
 ## Record of Tasks
