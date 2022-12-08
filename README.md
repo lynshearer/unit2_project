@@ -88,6 +88,13 @@ Considering the budgetary constrains of the client and the hardware requirements
 |                            |                        | Adafruit_DHT |
 
 ## List of techniques used
+| Technique |
+|-----------|
+| Posting to a remote server with server API. |
+| Retrieving data from a remote server with server API and requests library. |
+| For loops in order to run code under certain conditions. For example, to get readings for multiple DHT11 sensors with one for loop of code. Utilizing a for loop is more efficient than creating a code for each sensor separately. |
+| Creating lists (in order to save data from DHT11 sensors by temperature and humidity). |
+| Creating CSV files (in order to save data from DHT11 sensors by temperature and humidity). |
 
 ## Computational Thinkings
 
