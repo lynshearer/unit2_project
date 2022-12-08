@@ -66,6 +66,7 @@ Considering the budgetary constrains of the client and the hardware requirements
 | 14       | Research safe humidity and temperature levels.                        | Determine whether humidity and temperature levels on the UWC ISAK campusa are healthy/safe or unhealthy/unsafe.        | 20 mins                 | Dec 05         | D
 | 15       | Coding the code for getting data from school sensors.                        | In order to retrieve posted data from the server to apply to future codes and models.        | 45 mins                 | Dec 06         | C
 | 16       | Adding codes of mvp, server initialization, and getting data from school sensor.                        | To make sure product development information is updated to Criteria C. Displays the details from how we created our product.        | 20 mins                 | Dec 06         | C
+| 17       | Coding the graphings of school and room temperature and humidity datas. | To prepare scatter plot graphs with non-linear best fit functions        | 60 mins                 | Dec 09         | C
 
 ## Test Plan
 | Software Test Type | Input | Process | Planned Output  |
@@ -214,6 +215,113 @@ for i in readings:
             writer = csv.writer(file)
             writer.writerow([i['datetime'],i['value']])
 ```
+
+### Graph plotting
+This program gets data from the database files and plotts the datas into separate scatter plots. In addition, it also calculates and plots the non-linear lines of best fit. Please refer to the code and graphs plotted as below:
+
+```.py
+# this program plots the data from the csv files
+import matplotlib.pyplot as plt
+import numpy as np
+
+with open("room_hum.csv", "r") as file:
+    room_hum_data = file.readlines()
+with open("room_temp.csv", "r") as file:
+    room_temp_data = file.readlines()
+with open("school_humidity.csv", "r") as file:
+    school_hum_data = file.readlines()
+with open("school_temperature.csv", "r") as file:
+    school_temp_data = file.readlines()
+
+fig_width= 15
+fig_height= 25
+
+# plot room temperature
+room_temp=[]
+index=[]
+count=1
+for temp_data in room_temp_data:
+    temp_datas = temp_data.strip()
+    values = temp_datas.split(",")
+    room_temp.append(float(values[4]))
+    index.append(count)
+    count+=1
+# calculate best fit 4 degree polynomial
+p = np.poly1d(np.polyfit(index, room_temp, 5))
+
+#start plotting graph
+plt.figure(figsize=(fig_width,fig_height))
+plt.subplot(4,1,1)
+plt.scatter(index,room_temp)
+plt.plot(index,p(index), color="red")
+plt.title("Room Temperature")
+plt.ylabel("Average Temperature")
+plt.xlabel("Measures")
+
+
+# plot room humidity
+room_hum=[]
+index=[]
+count=1
+for hum_data in room_hum_data:
+    hum_datas = hum_data.strip()
+    values = hum_datas.split(",")
+    room_hum.append(float(values[4]))
+    index.append(count)
+    count+=1
+
+p = np.poly1d(np.polyfit(index, room_hum, 5))
+
+#size of graph
+plt.subplot(4,1,2)
+plt.scatter(index,room_hum)
+plt.plot(index,p(index), color="red")
+plt.title("Room Humidity")
+plt.ylabel("Average Humidity")
+plt.xlabel("Measures")
+
+
+# plot school temperature
+school_temp=[]
+index=[]
+count=1
+for school_temp_datas in school_temp_data:
+    school_temp_datas = school_temp_datas.strip()
+    values = school_temp_datas.split(",")
+    school_temp.append(float(values[1]))
+    index.append(count)
+    count+=1
+p = np.poly1d(np.polyfit(index, school_temp, 5))
+plt.subplot(4,1,3)
+plt.scatter(index,school_temp)
+plt.plot(index,p(index), color="red")
+plt.title("School Temperature")
+plt.ylabel("Average Temperature")
+plt.xlabel("Measures")
+
+# plot school humidity
+school_hum=[]
+index=[]
+count=1
+for school_hum_datas in school_hum_data:
+    school_hum_datas = school_hum_datas.strip()
+    values = school_hum_datas.split(",")
+    school_hum.append(float(values[1]))
+    index.append(count)
+    count+=1
+p = np.poly1d(np.polyfit(index, school_hum, 5))
+plt.subplot(4,1,4)
+plt.scatter(index,school_hum)
+plt.plot(index,p(index), color="red")
+plt.title("School Humidity")
+plt.ylabel("Average Humidity")
+plt.xlabel("Measures")
+
+plt.show()
+```
+![myplot](https://user-images.githubusercontent.com/100017195/206483996-6ab5145b-8855-4ff8-bcb0-0cdb939da3f4.jpeg)
+
+
 
 # Criteria D: Functionality
 
