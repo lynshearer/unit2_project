@@ -67,6 +67,8 @@ Considering the budgetary constrains of the client and the hardware requirements
 | 15       | Coding the code for getting data from school sensors.                        | In order to retrieve posted data from the server to apply to future codes and models.        | 45 mins                 | Dec 06         | C
 | 16       | Adding codes of mvp, server initialization, and getting data from school sensor.                        | To make sure product development information is updated to Criteria C. Displays the details from how we created our product.        | 20 mins                 | Dec 06         | C
 | 17       | Coding the graphings of school and room temperature and humidity datas. | To prepare scatter plot graphs with non-linear best fit functions        | 60 mins                 | Dec 09         | C
+| 18       | Coding prototype graphing for one specific data | To plot graphs from all sensors and the average of one specific data (room temperature) | 35 mins                 | Dec 09         | C
+
 
 ## Test Plan
 | Software Test Type | Input | Process | Planned Output  |
@@ -216,7 +218,94 @@ for i in readings:
             writer.writerow([i['datetime'],i['value']])
 ```
 
-### Graph plotting
+### merged graph - 4 sensors + average data - 1 data
+We established a prototype of how each data can be individually viewed from each sensors' outcomes and view the average of the data using room temperature sensors as an example. The code plots the graps of smoothed room temperature data from all 4 sensors and a larger graph of the average temperature datas.
+Please refer to the code and graph plotted below:
+
+```.py
+from matplotlib.gridspec import GridSpec
+
+def get_sensor(readings: list, id: int) -> list:
+    data = []
+    for i in readings:
+        if i['sensor_id'] == id:
+            data.append(i['value'])
+    return data
+def download_data(url:str="192.168.6.142/readings")->list:
+    req = requests.get(f"http://{url}")
+    readings=req.json()['readings'][0]
+    return readings
+def smoothing(data:list,size_window:int=12):
+    data_smooth=[]
+    for i in range(0,len(data),size_window):
+        data_in_window=data[i:i+size_window]
+        average=sum(data_in_window)/size_window
+        data_smooth.append(average)
+    return data_smooth
+
+
+import requests
+import matplotlib.pyplot as plt
+import numpy as np
+readings=download_data()
+sensors=[6,8,9,10]
+
+data_6=[]
+data_8=[]
+data_9=[]
+data_10=[]
+
+
+data_6=get_sensor(readings,6)
+data_8=get_sensor(readings,8)
+data_9=get_sensor(readings,9)
+data_10=get_sensor(readings,10)
+
+
+data_6=data_6[0:499]
+data_8=data_8[0:499]
+data_9=data_9[0:499]
+data_10=data_10[0:499]
+
+#average of 4 sensors
+average=[]
+for i in range(0,499):
+    average.append((data_6[i]+data_8[i]+data_9[i]+data_10[i])/4)
+
+#smoothing data of 12 samples
+data_6_smooth=smoothing(data_6,10)
+data_8_smooth=smoothing(data_8,10)
+data_9_smooth=smoothing(data_9,10)
+data_10_smooth=smoothing(data_10,10)
+average_smooth=smoothing(average,10)
+
+#plotting the data
+# style of graph
+plt.style.use('seaborn-whitegrid')
+fig=plt.figure(figsize=(10,8))
+grid=GridSpec(4,4,figure=fig)
+#create big plot
+box1=fig.add_subplot(grid[0:4,0:3])
+plt.plot(average_smooth)
+plt.title("Smoothed average of 4 sensors")
+plt.xlabel("Time")
+plt.ylabel("Temperature in Celsius")
+
+datas=[data_6_smooth,data_8_smooth,data_9_smooth,data_10_smooth]
+
+#create small plots
+for i in range(len(sensors)):
+    box=fig.add_subplot(grid[i,3])
+    plt.plot(datas[1])
+    plt.title(f"Sensor {sensors[i]}")
+    plt.xlabel("Time")
+    plt.ylabel("Temperature in Celsius")
+plt.show()
+```
+![4+1_data](https://user-images.githubusercontent.com/100017195/206707974-d5a1d7d6-fb11-493e-9684-c96a13daf260.jpeg)
+
+
+### sensor average graphs with best fit - all data
 This program gets data from the database files and plotts the datas into separate scatter plots. In addition, it also calculates and plots the non-linear lines of best fit. Please refer to the code and graphs plotted as below:
 
 ```.py
