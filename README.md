@@ -92,6 +92,9 @@ Considering the budgetary constrains of the client and the hardware requirements
 | VNC viewer                 | API requests           | requests     |
 |                            |                        | csv          |
 |                            |                        | Adafruit_DHT |
+|                            |                        | matplotlib   |
+|                            |                        | numpy        |
+
 
 ## List of techniques used
 | Technique |
