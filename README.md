@@ -68,7 +68,8 @@ Considering the budgetary constrains of the client and the hardware requirements
 | 16       | Adding codes of mvp, server initialization, and getting data from school sensor.                        | To make sure product development information is updated to Criteria C. Displays the details from how we created our product.        | 20 mins                 | Dec 06         | C
 | 17       | Coding the graphings of school and room temperature and humidity datas. | To prepare scatter plot graphs with non-linear best fit functions        | 60 mins                 | Dec 09         | C
 | 18       | Coding prototype graphing for one specific data | To plot graphs from all sensors and the average of one specific data (room temperature) | 35 mins                 | Dec 09         | C
-| 18       | Upgrading the graphs with smoothing and prediction of the polynomial best fit | To plot smoothed data of sensors with a polynomial best fit which predicts the data 12 hours after the collected time.| 35 mins                 | Dec 10         | C
+| 19       | Upgrading the graphs with smoothing and prediction of the polynomial best fit | To plot smoothed data of sensors with a polynomial best fit which predicts the data 12 hours after the collected time.| 35 mins                 | Dec 10         | C
+| 20       | Graphs with additional data | To plot smoothed average data of sensors with maximum, minimum and mean value, with an error bar indicating the standard deviation of the mean data.| 15 mins                 | Dec 10         | C
 
 ## Test Plan
 | Software Test Type | Input | Process | Planned Output  |
@@ -425,6 +426,144 @@ plt.xlabel("Measures")
 plt.show()
 ```
 ![predictions](https://user-images.githubusercontent.com/100017195/206832657-5ba64cf1-1e0e-4c59-aa04-6962159aad43.jpeg)
+
+### Max, min, mean, medium & standard deviation 
+This program aims to plot the maximum, minimum, medium values of the plotted mean values of data, and indicate the values with lines horizontal to the x-axis. The program also plots error bars to illustrate the dtandard deviation. Please refer to the code and graph plotted below.
+
+```.py
+# this program plots the data from the csv files and
+# plots statistics such as maximum,
+# minimum, mean and standard deviation
+from scipy.optimize import curve_fit
+import matplotlib.pyplot as plt
+import numpy as np
+from lib import smoothing
+from math import ceil
+
+with open("room_hum.csv", "r") as file:
+    room_hum_data = file.readlines()
+with open("room_temp.csv", "r") as file:
+    room_temp_data = file.readlines()
+with open("school_humidity.csv", "r") as file:
+    school_hum_data = file.readlines()
+with open("school_temperature.csv", "r") as file:
+    school_temp_data = file.readlines()
+
+fig_width= 15
+fig_height= 25
+
+power=3
+
+# room temperature
+room_temp=[]
+index=[]
+prediction_index=[]
+for temp_data in room_temp_data:
+    temp_datas = temp_data.strip()
+    values = temp_datas.split(",")
+    room_temp.append(float(values[4]))
+# smoothing data
+room_temp_smooth=smoothing(room_temp, 10)
+# create index for data
+for i in range(len(room_temp_smooth)):
+    index.append(i+1)
+#start plotting graph
+plt.figure(figsize=(fig_width,fig_height))
+plt.subplot(4,1,1)
+plt.plot(room_temp_smooth)
+plt.title("Room Temperature")
+plt.ylabel("Average Temperature(°C)")
+plt.xlabel("Measures")
+# plot maximum, minimum, mean
+plt.axhline(y=max(room_temp_smooth), color="red")
+plt.axhline(y=min(room_temp_smooth), color="green")
+plt.axhline(y=np.mean(room_temp_smooth), color="orange")
+# calculate standard deviation
+std_dev = np.std(room_temp_smooth)
+# plot error bars
+plt.errorbar(index, room_temp_smooth, yerr=std_dev, fmt='o', color="lightblue")
+
+# room humidity
+room_hum=[]
+for hum_data in room_hum_data:
+    hum_datas = hum_data.strip()
+    values = hum_datas.split(",")
+    room_hum.append(float(values[4]))
+# smoothing data
+room_hum_smooth=smoothing(room_hum, 10)
+# start plotting
+plt.subplot(4,1,2)
+plt.plot(index,room_hum_smooth)
+plt.title("Room Humidity")
+plt.ylabel("Average Humidity(%)")
+plt.xlabel("Measures")
+# plot maximum, minimum, mean
+plt.axhline(y=max(room_hum_smooth), color="red")
+plt.axhline(y=min(room_hum_smooth), color="green")
+plt.axhline(y=np.mean(room_hum_smooth), color="orange")
+# calculate standard deviation
+std_dev = np.std(room_hum_smooth)
+# plot error bars
+plt.errorbar(index, room_hum_smooth, yerr=std_dev, fmt='o', color="lightblue")
+
+
+# school temperature
+school_temp=[]
+index=[]
+prediction_index=[]
+for school_temp_datas in school_temp_data:
+    school_temp_datas = school_temp_datas.strip()
+    values = school_temp_datas.split(",")
+    school_temp.append(float(values[1]))
+school_temp.pop()
+# smoothing data
+school_temp_smooth=smoothing(school_temp, 10)
+# create index for data
+for i in range(len(school_temp_smooth)):
+    index.append(i+1)
+# start plotting
+plt.subplot(4,1,3)
+plt.plot(index,school_temp_smooth)
+plt.title("School Temperature")
+plt.ylabel("Average Temperature(°C)")
+plt.xlabel("Measures")
+# plot maximum, minimum, mean
+plt.axhline(y=max(school_temp_smooth), color="red")
+plt.axhline(y=min(school_temp_smooth), color="green")
+plt.axhline(y=np.mean(school_temp_smooth), color="orange")
+# calculate standard deviation
+std_dev = np.std(school_temp_smooth)
+# plot error bars
+plt.errorbar(index, school_temp_smooth, yerr=std_dev, fmt='o', color="lightblue")
+
+
+# school humidity
+school_hum=[]
+for school_hum_datas in school_hum_data:
+    school_hum_datas = school_hum_datas.strip()
+    values = school_hum_datas.split(",")
+    school_hum.append(float(values[1]))
+school_hum.pop()
+# smoothing data
+school_hum_smooth=smoothing(school_hum, 10)
+plt.subplot(4,1,4)
+plt.plot(index,school_hum_smooth)
+plt.title("School Humidity")
+plt.ylabel("Average Humidity(%)")
+plt.xlabel("Measures")
+# plot maximum, minimum, mean
+plt.axhline(y=max(school_hum_smooth), color="red")
+plt.axhline(y=min(school_hum_smooth), color="green")
+plt.axhline(y=np.mean(school_hum_smooth), color="orange")
+# calculate standard deviation
+std_dev = np.std(school_hum_smooth)
+# plot error bars
+plt.errorbar(index, school_hum_smooth, yerr=std_dev, fmt='o', color="lightblue")
+
+
+plt.show()
+```
+![max_min_stad_medium](https://user-images.githubusercontent.com/100017195/206835085-04297569-8d36-4a23-99ec-ca689cbb9758.jpeg)
 
 
 # Criteria D: Functionality
