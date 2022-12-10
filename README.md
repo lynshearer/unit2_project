@@ -81,6 +81,8 @@ Considering the budgetary constrains of the client and the hardware requirements
 | Performance Testing | Code to receive humidity and temperature data from DHT sensors | 1. Run code. 2. Measure response time. | Code will run and data will be collected and printed on the computer monitor within 5 seconds.|
 | Unit Testing | Code for appending humidity and temperature data to csv file | 1. Run code. | A new csv file will be created for humidity and temperature (humidity.csv and temperatures.csv). Data from DHT sensors will be appended to csv files. |
 | Integration Testing | Crontab and VNC Viewer | 1. Run code. 2. Wait to see code runs every 5 minutes and humidity and temperature data is appended to csv file every 5 minutes. | Temperature and humidity data is appended to designated csv file every 5 minutes. Information appended includes data from each of the four sensors, average of data and date and time that data is appended to file.|
+| Unit Testing | Code for graphs. | 1. Run code. 2. Wait to see if graphs appear. 3. Confirm that graphs are accurate by comparing to data from CSV files. | Confirm that graph has correct plot for the graph of the line, standard deviation, mean, median, maximum, minimum, prediction, nonlinear model. Compare data with readings collected to ensure maximum accuracy. |
+
 
 
 # Criteria C: Development
@@ -104,6 +106,9 @@ Considering the budgetary constrains of the client and the hardware requirements
 | For loops in order to run code under certain conditions. For example, to get readings for multiple DHT11 sensors with one for loop of code. Utilizing a for loop is more efficient than creating a code for each sensor separately. |
 | Creating lists (in order to save data from DHT11 sensors by temperature and humidity). |
 | Creating CSV files (in order to save data from DHT11 sensors by temperature and humidity). |
+| Plot median, mean, maximum, minimum, standard deviation and a non linear model using python. |
+| Predicting temperature and humidity values based on line of best fit equation (non linear model). |
+| Smoothing data on a graph. |
 
 ## Computational Thinkings
 
