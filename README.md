@@ -73,6 +73,7 @@ Considering the budgetary constrains of the client and the hardware requirements
 | 21       | Outline for video and compiling data and images to present the final product and solution. | To gather all information necessary in order to create an organized video presenting our product.| 120 mins                 | Dec 07-11         | D
 | 22       | Create scientific poster. | To clearly present the background information, methodologies, materials, results, analysis and conclusion for the client.| 120 mins                 | Dec 07-11         | D
 
+
 ## Test Plan
 | Software Test Type | Input | Process | Planned Output  |
 |------|-------------|----------|---------|
