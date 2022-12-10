@@ -68,7 +68,7 @@ Considering the budgetary constrains of the client and the hardware requirements
 | 16       | Adding codes of mvp, server initialization, and getting data from school sensor.                        | To make sure product development information is updated to Criteria C. Displays the details from how we created our product.        | 20 mins                 | Dec 06         | C
 | 17       | Coding the graphings of school and room temperature and humidity datas. | To prepare scatter plot graphs with non-linear best fit functions        | 60 mins                 | Dec 09         | C
 | 18       | Coding prototype graphing for one specific data | To plot graphs from all sensors and the average of one specific data (room temperature) | 35 mins                 | Dec 09         | C
-
+| 18       | Upgrading the graphs with smoothing and prediction of the polynomial best fit | To plot smoothed data of sensors with a polynomial best fit which predicts the data 12 hours after the collected time.| 35 mins                 | Dec 10         | C
 
 ## Test Plan
 | Software Test Type | Input | Process | Planned Output  |
@@ -305,13 +305,16 @@ plt.show()
 ![4+1_data](https://user-images.githubusercontent.com/100017195/206707974-d5a1d7d6-fb11-493e-9684-c96a13daf260.jpeg)
 
 
-### sensor average graphs with best fit - all data
-This program gets data from the database files and plotts the datas into separate scatter plots. In addition, it also calculates and plots the non-linear lines of best fit. Please refer to the code and graphs plotted as below:
+### Polynomial fit with predictions
+This program aims to plot the **smoothed** average data and plot a **polynomial best fit**, which **predicts** the datas for 12 hours after the collected data ends. Please refer to the code and graphs plotted below.
 
 ```.py
 # this program plots the data from the csv files
+from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 import numpy as np
+from lib import smoothing
+from math import ceil
 
 with open("room_hum.csv", "r") as file:
     room_hum_data = file.readlines()
@@ -324,92 +327,104 @@ with open("school_temperature.csv", "r") as file:
 
 fig_width= 15
 fig_height= 25
+power=3
 
-# plot room temperature
+# room temperature
 room_temp=[]
 index=[]
-count=1
+prediction_index=[]
 for temp_data in room_temp_data:
     temp_datas = temp_data.strip()
     values = temp_datas.split(",")
     room_temp.append(float(values[4]))
-    index.append(count)
-    count+=1
-# calculate best fit 4 degree polynomial
-p = np.poly1d(np.polyfit(index, room_temp, 5))
-
+# smoothing data
+room_temp_smooth=smoothing(room_temp, 10)
+# create index for data
+for i in range(len(room_temp_smooth)):
+    index.append(i+1)
+# create index for prediction
+for i in range(ceil(len(index)*1.2)):
+    prediction_index.append(i+1)
+# calculate best fit polynomial
+p = np.poly1d(np.polyfit(index, room_temp_smooth, power))
 #start plotting graph
 plt.figure(figsize=(fig_width,fig_height))
 plt.subplot(4,1,1)
-plt.scatter(index,room_temp)
-plt.plot(index,p(index), color="red")
+plt.plot(room_temp_smooth)
+plt.plot(prediction_index,p(prediction_index), color="red")
 plt.title("Room Temperature")
-plt.ylabel("Average Temperature")
+plt.ylabel("Average Temperature(°C)")
 plt.xlabel("Measures")
 
-
-# plot room humidity
+# room humidity
 room_hum=[]
-index=[]
-count=1
 for hum_data in room_hum_data:
     hum_datas = hum_data.strip()
     values = hum_datas.split(",")
     room_hum.append(float(values[4]))
-    index.append(count)
-    count+=1
-
-p = np.poly1d(np.polyfit(index, room_hum, 5))
-
-#size of graph
+# smoothing data
+room_hum_smooth=smoothing(room_hum, 10)
+# polynomial fit
+p = np.poly1d(np.polyfit(index, room_hum_smooth, power))
+# start plotting graph
 plt.subplot(4,1,2)
-plt.scatter(index,room_hum)
-plt.plot(index,p(index), color="red")
+plt.plot(index,room_hum_smooth)
+plt.plot(prediction_index,p(prediction_index), color="red")
 plt.title("Room Humidity")
-plt.ylabel("Average Humidity")
+plt.ylabel("Average Humidity(%)")
 plt.xlabel("Measures")
 
 
-# plot school temperature
+# school temperature
 school_temp=[]
 index=[]
-count=1
+prediction_index=[]
 for school_temp_datas in school_temp_data:
     school_temp_datas = school_temp_datas.strip()
     values = school_temp_datas.split(",")
     school_temp.append(float(values[1]))
-    index.append(count)
-    count+=1
-p = np.poly1d(np.polyfit(index, school_temp, 5))
+school_temp.pop()
+# smoothing data
+school_temp_smooth=smoothing(school_temp, 10)
+# create index for data
+for i in range(len(school_temp_smooth)):
+    index.append(i+1)
+# create index for prediction
+for i in range(ceil(len(index)*1.2)):
+    prediction_index.append(i+1)
+# calculate best fit polynomial
+p = np.poly1d(np.polyfit(index, school_temp_smooth, power))
+# start plotting
 plt.subplot(4,1,3)
-plt.scatter(index,school_temp)
-plt.plot(index,p(index), color="red")
+plt.plot(index,school_temp_smooth)
+plt.plot(prediction_index,p(prediction_index), color="red")
 plt.title("School Temperature")
-plt.ylabel("Average Temperature")
+plt.ylabel("Average Temperature(°C)")
 plt.xlabel("Measures")
 
-# plot school humidity
+# school humidity
 school_hum=[]
-index=[]
-count=1
 for school_hum_datas in school_hum_data:
     school_hum_datas = school_hum_datas.strip()
     values = school_hum_datas.split(",")
     school_hum.append(float(values[1]))
-    index.append(count)
-    count+=1
-p = np.poly1d(np.polyfit(index, school_hum, 5))
+school_hum.pop()
+# smoothing data
+school_hum_smooth=smoothing(school_hum, 10)
+# calculate best fit polynomial
+p = np.poly1d(np.polyfit(index, school_hum_smooth, power))
+# start plotting
 plt.subplot(4,1,4)
-plt.scatter(index,school_hum)
-plt.plot(index,p(index), color="red")
+plt.plot(index,school_hum_smooth)
+# plot prediction best fit polynomial
+plt.plot(prediction_index,p(prediction_index), color="red")
 plt.title("School Humidity")
-plt.ylabel("Average Humidity")
+plt.ylabel("Average Humidity(%)")
 plt.xlabel("Measures")
 
 plt.show()
 ```
-![myplot](https://user-images.githubusercontent.com/100017195/206483996-6ab5145b-8855-4ff8-bcb0-0cdb939da3f4.jpeg)
-
+![predictions](https://user-images.githubusercontent.com/100017195/206832657-5ba64cf1-1e0e-4c59-aa04-6962159aad43.jpeg)
 
 
 # Criteria D: Functionality
