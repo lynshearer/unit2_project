@@ -70,6 +70,8 @@ Considering the budgetary constrains of the client and the hardware requirements
 | 18       | Coding prototype graphing for one specific data | To plot graphs from all sensors and the average of one specific data (room temperature) | 35 mins                 | Dec 09         | C
 | 19       | Upgrading the graphs with smoothing and prediction of the polynomial best fit | To plot smoothed data of sensors with a polynomial best fit which predicts the data 12 hours after the collected time.| 35 mins                 | Dec 10         | C
 | 20       | Graphs with additional data | To plot smoothed average data of sensors with maximum, minimum and mean value, with an error bar indicating the standard deviation of the mean data.| 15 mins                 | Dec 10         | C
+| 21       | Outline for video and compiling data and images to present the final product and solution. | To gather all information necessary in order to create an organized video presenting our product.| 120 mins                 | Dec 07-11         | D
+| 22       | Create scientific poster. | To clearly present the background information, methodologies, materials, results, analysis and conclusion for the client.| 120 mins                 | Dec 07-11         | D
 
 ## Test Plan
 | Software Test Type | Input | Process | Planned Output  |
@@ -567,6 +569,10 @@ plt.show()
 
 
 # Criteria D: Functionality
+
+## Scientific Poster
+![ISAK Weather Station (2)](https://user-images.githubusercontent.com/111893043/206835329-92647e55-bd97-465c-99b8-709a56c15a5c.jpeg)
+
 
 A 7 min video demonstrating the proposed solution with narration
 
