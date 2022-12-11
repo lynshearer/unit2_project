@@ -1,5 +1,6 @@
 # Unit 2 Project: A Distributed Weather Station for ISAK
 ![b93685101c1460fc](https://user-images.githubusercontent.com/100017195/202971624-5e583f4a-3fc9-4300-b590-80c0c5aa6fce.jpg)
+**Fig.1** Raspberry Pi meme [^0]
 
 ## Criteria A: Planning
 
@@ -31,7 +32,7 @@ Considering the budgetary constrains of the client and the hardware requirements
 ## System Diagram
 ![sysdim_hl](https://user-images.githubusercontent.com/100017195/202972155-a515b55d-e2e5-434d-97ce-878c8630040b.jpg)
 
-**Fig.1** shows the system diagram for the proposed solution (**HL**). The indoor variables will be measured using a Raspberry PI and four DHT11 sensors located inside a room. Four sensors are used to determine more precisely the physical values and include measurement uncertainty. The outdoor variables will be requested to the remote server using a GET request to the API of the server at ```192.168.6.147/readings```. The local values are stored in a CSV database locally and POST to the server using the API and TOKEN authentication. A laptop computer is used for remotely controlling the local Rasberry Pi using a Dekptop sharing application (VNC Viewer). Data from the local raspberry is downloaded to the laptop for analysis and processing.
+**Fig.2** shows the system diagram for the proposed solution (**HL**). The indoor variables will be measured using a Raspberry PI and four DHT11 sensors located inside a room. Four sensors are used to determine more precisely the physical values and include measurement uncertainty. The outdoor variables will be requested to the remote server using a GET request to the API of the server at ```192.168.6.147/readings```. The local values are stored in a CSV database locally and POST to the server using the API and TOKEN authentication. A laptop computer is used for remotely controlling the local Rasberry Pi using a Dekptop sharing application (VNC Viewer). Data from the local raspberry is downloaded to the laptop for analysis and processing.
 
 ## How data is stored
 We stored the temperature and humidity data  in both seperate database csv files, and sent the datas to the sensors created in the server everytime the set of data is collected. 
@@ -39,14 +40,17 @@ We stored the temperature and humidity data  in both seperate database csv files
 ## Flow Diagram 1 - Main File
 ![IMG_0504](https://user-images.githubusercontent.com/100017195/205495755-11bcf00d-d1df-4470-b2fc-e9f43b84790f.jpeg)
 ![IMG_0505](https://user-images.githubusercontent.com/100017195/205495760-5109719e-7b78-419b-9498-d0ae682b3d31.jpeg)
+**Fig.3** shows the flow diagram of the main file that collects datas from the server and stores them into csv files and sends them to the server.
 
 ## Flow Diagram 2 - Server Creation
 ![Untitled-19](https://user-images.githubusercontent.com/111893043/206170522-88960069-42a2-4ed3-b9d1-0e4238888a66.jpg)
 ![Untitled-20 3](https://user-images.githubusercontent.com/111893043/206171086-e86bfb21-3013-4bef-b45e-55e83ae545d8.jpg)
 
+**Fig.4** shows the flow diagram of the initiation of accounts for the servers and sensors.
+
 ## Flow Diagram 3 - MVP
 ![Untitled-21](https://user-images.githubusercontent.com/111893043/206180312-15704e70-6f39-4dbe-98e7-e79ce5351f95.jpg)
-
+**Fig.5** shows the flow diagrams for the minimum viable product for the project.
 
 
 
@@ -189,6 +193,8 @@ Crontab utilization:
 The utilization of crontab, as shown below, allows the code to run every 5 minutes (therefore taking readings and posting them to the server consistently at the aforementioned interval) until the crontab is deleted. 
 
 <img width="776" alt="crontab" src="https://user-images.githubusercontent.com/100017195/206906756-9e9847ee-fc7d-41f9-a290-83ebf982f805.png">
+**Fig.6** shows the cron tab for controlling the program to run every 5 minutes.
+
 
 ## Code development
 Below are the developments of the Python code being programmed for the project.
@@ -377,7 +383,7 @@ for i in range(len(sensors)):
 plt.show()
 ```
 ![4+1_data](https://user-images.githubusercontent.com/100017195/206707974-d5a1d7d6-fb11-493e-9684-c96a13daf260.jpeg)
-
+**Fig.7** shows the prototype graph plotted with 4 separate sensor datas and one large graph of average data for room temperature.
 
 ### Polynomial fit with predictions
 This program aims to plot the **smoothed** average data and plot a **polynomial best fit**, which **predicts** the datas for 12 hours after the collected data ends. Please refer to the code and graphs plotted below.
@@ -499,6 +505,8 @@ plt.xlabel("Measures")
 plt.show()
 ```
 ![predictions](https://user-images.githubusercontent.com/100017195/206832657-5ba64cf1-1e0e-4c59-aa04-6962159aad43.jpeg)
+**Fig.8** shows the room and school temperature and humidity average data smoothed, with a polynomial best fit which extends 12 hours over the data collected for prediction.
+
 
 ### Max, min, mean, medium & standard deviation 
 This program aims to plot the maximum, minimum, medium values of the plotted mean values of data, and indicate the values with lines horizontal to the x-axis. The program also plots error bars to illustrate the dtandard deviation. Please refer to the code and graph plotted below.
@@ -633,20 +641,20 @@ std_dev = np.std(school_hum_smooth)
 # plot error bars
 plt.errorbar(index, school_hum_smooth, yerr=std_dev, fmt='o', color="lightblue")
 
-
 plt.show()
 ```
 ![max_min_stad_medium](https://user-images.githubusercontent.com/100017195/206835085-04297569-8d36-4a23-99ec-ca689cbb9758.jpeg)
-
+**Fig.9** shows the average smoothed data for school and room temperature and humidity with the extra data including maximum, minimum, mean, and an error bar graph displaying the standard deviation.
 
 # Criteria D: Functionality
 
 ## Scientific Poster
 ![ISAK Weather Station (2)](https://user-images.githubusercontent.com/111893043/206835329-92647e55-bd97-465c-99b8-709a56c15a5c.jpeg)
-
+**Fig.9** scientific poster summarizing the project.
 
 A 7 min video demonstrating the proposed solution with narration
 
+[^0]: Cherry Pie Apple Pie Raspberry Pi Meme https://www.imagesplatform.com/post/cherry-pie-apple-pie-raspberry-pi-meme-vkE87
 [^1]: Industries, Adafruit. “DHT11 Basic Temperature-Humidity Sensor + Extras.” Adafruit Industries Blog RSS, https://www.adafruit.com/product/386. 
 [^2]: Nelson, Carter. “Modern Replacements for DHT11 and dht22 Sensors.” Adafruit Learning System, https://learn.adafruit.com/modern-replacements-for-dht11-dht22-sensors/what-are-better-alternatives.   
 [^3]:“How to Connect dht11 Sensor with Arduino Uno.” Arduino Project Hub, https://create.arduino.cc/projecthub/pibots555/how-to-connect-dht11-sensor-with-arduino-uno-f4d239.  
