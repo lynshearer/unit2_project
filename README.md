@@ -145,7 +145,7 @@ plt.ylabel("Average Temperature(°C)")
 plt.xlabel("Measures")
 ```
 
-### Pattern Recognition:
+### Pattern recognition, generalization and abstraction:
 For the codes of the smoothed average of the sensors, there was a lot of repetition when it came to requesting the data for each of the four sensors from the server as well as plotting the average. This decreases the efficiency and simplicity of the code. In order to fix this, multiple functions were defined in order to create a template for the requesting and analysis of the data. These were placed in a cumulative library as shown below. Then, we were able to call these functions and also utilize for loops and inline for loops in order to eradicate any unnecessary repetition in the code for each sensor. This is shown below. 
 
 Lib.py
