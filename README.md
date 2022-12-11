@@ -72,6 +72,7 @@ Considering the budgetary constrains of the client and the hardware requirements
 | 20       | Graphs with additional data | To plot smoothed average data of sensors with maximum, minimum and mean value, with an error bar indicating the standard deviation of the mean data.| 15 mins                 | Dec 10         | C
 | 21       | Outline for video and compiling data and images to present the final product and solution. | To gather all information necessary in order to create an organized video presenting our product.| 120 mins                 | Dec 07-11         | D
 | 22       | Create scientific poster. | To clearly present the background information, methodologies, materials, results, analysis and conclusion for the client.| 120 mins                 | Dec 07-11         | D
+| 23       | Update show your CT | To update a pattern recognition for computer thinking skills. | 15 mins                 | Dec 11         | C
 
 
 ## Test Plan
@@ -113,7 +114,32 @@ Considering the budgetary constrains of the client and the hardware requirements
 
 ## Computational Thinkings
 
-Algorithms: In the initial code and MVP, we utilized a while loop in order for the code to loop and take readings at specific intervals. This was inefficient because the task is to get readings at a 5 minute interval for 48 hours, but with a while loop, if the computer was closed or the server lost connection, the code would stop running and therefore stop taking the necessary readings. In order to avoid having to keep the computer and VNC application running actively for 48 hours, we utilized a simple tool that can fix this problem, a crontab task through the raspberry pi terminal in order to create a task that would run the code every five minutes. 
+### Pattern Recognition:
+For the codes of the smoothed average of the sensors, there was a lot of repetition when it came to requesting the data for each of the four sensors from the server as well as plotting the average. This decreases the efficiency and simplicity of the code. In order to fix this, multiple functions were defined in order to create a template for the requesting and analysis of the data. These were placed in a cumulative library as shown below. Then, we were able to call these functions and also utilize for loops and inline for loops in order to eradicate any unnecessary repetition in the code for each sensor. This is shown below. 
+
+Lib.py
+```.py
+def get_sensor(readings: list, id: int) -> list:
+    data = []
+    for i in readings:
+        if i['sensor_id'] == id:
+            data.append(i['value'])
+    return data
+def download_data(url:str="192.168.6.142/readings")->list:
+    req = requests.get(f"http://{url}")
+    readings=req.json()['readings'][0]
+    return readings
+def smoothing(data:list,size_window:int=12):
+    data_smooth=[]
+    for i in range(0,len(data),size_window):
+        data_in_window=data[i:i+size_window]
+        average=sum(data_in_window)/size_window
+        data_smooth.append(average)
+    return data_smooth
+```
+
+### Algorithms:
+In the initial code and MVP, we utilized a while loop in order for the code to loop and take readings at specific intervals. This was inefficient because the task is to get readings at a 5 minute interval for 48 hours, but with a while loop, if the computer was closed or the server lost connection, the code would stop running and therefore stop taking the necessary readings. In order to avoid having to keep the computer and VNC application running actively for 48 hours, we utilized a simple tool that can fix this problem, a crontab task through the raspberry pi terminal in order to create a task that would run the code every five minutes. 
 
 Code before:
 ```.py
@@ -128,7 +154,7 @@ while True:
 Crontab utilization:
 The utilization of crontab, as shown below, allows the code to run every 5 minutes (therefore taking readings and posting them to the server consistently at the aforementioned interval) until the crontab is deleted. 
 
-![Screen Shot 2022-12-06 at 14 14 20 Small](https://user-images.githubusercontent.com/111893043/205823869-357b16d5-a115-4512-93ab-38a5255afbe6.jpeg)
+<img width="776" alt="crontab" src="https://user-images.githubusercontent.com/100017195/206906756-9e9847ee-fc7d-41f9-a290-83ebf982f805.png">
 
 ## Code development
 Below are the developments of the Python code being programmed for the project.
