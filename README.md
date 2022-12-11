@@ -33,6 +33,9 @@ Considering the budgetary constrains of the client and the hardware requirements
 
 **Fig.1** shows the system diagram for the proposed solution (**HL**). The indoor variables will be measured using a Raspberry PI and four DHT11 sensors located inside a room. Four sensors are used to determine more precisely the physical values and include measurement uncertainty. The outdoor variables will be requested to the remote server using a GET request to the API of the server at ```192.168.6.147/readings```. The local values are stored in a CSV database locally and POST to the server using the API and TOKEN authentication. A laptop computer is used for remotely controlling the local Rasberry Pi using a Dekptop sharing application (VNC Viewer). Data from the local raspberry is downloaded to the laptop for analysis and processing.
 
+## How data is stored
+We stored the temperature and humidity data  in both seperate database csv files, and sent the datas to the sensors created in the server everytime the set of data is collected. 
+
 ## Flow Diagram 1 - Main File
 ![IMG_0504](https://user-images.githubusercontent.com/100017195/205495755-11bcf00d-d1df-4470-b2fc-e9f43b84790f.jpeg)
 ![IMG_0505](https://user-images.githubusercontent.com/100017195/205495760-5109719e-7b78-419b-9498-d0ae682b3d31.jpeg)
@@ -73,7 +76,7 @@ Considering the budgetary constrains of the client and the hardware requirements
 | 21       | Outline for video and compiling data and images to present the final product and solution. | To gather all information necessary in order to create an organized video presenting our product.| 120 mins                 | Dec 07-11         | D
 | 22       | Create scientific poster. | To clearly present the background information, methodologies, materials, results, analysis and conclusion for the client.| 120 mins                 | Dec 07-11         | D
 | 23       | Update show your CT | To update a pattern recognition and decomposition for computer thinking skills. | 15 mins                 | Dec 11         | C
-
+| 24       | How data is stored | Upload short desctiption on how the data collected were stored | 3 mins                 | Dec 11         | B
 
 ## Test Plan
 | Software Test Type | Input | Process | Planned Output  |
