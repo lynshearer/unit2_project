@@ -72,7 +72,7 @@ Considering the budgetary constrains of the client and the hardware requirements
 | 20       | Graphs with additional data | To plot smoothed average data of sensors with maximum, minimum and mean value, with an error bar indicating the standard deviation of the mean data.| 15 mins                 | Dec 10         | C
 | 21       | Outline for video and compiling data and images to present the final product and solution. | To gather all information necessary in order to create an organized video presenting our product.| 120 mins                 | Dec 07-11         | D
 | 22       | Create scientific poster. | To clearly present the background information, methodologies, materials, results, analysis and conclusion for the client.| 120 mins                 | Dec 07-11         | D
-| 23       | Update show your CT | To update a pattern recognition for computer thinking skills. | 15 mins                 | Dec 11         | C
+| 23       | Update show your CT | To update a pattern recognition and decomposition for computer thinking skills. | 15 mins                 | Dec 11         | C
 
 
 ## Test Plan
@@ -113,6 +113,37 @@ Considering the budgetary constrains of the client and the hardware requirements
 | Smoothing data on a graph. |
 
 ## Computational Thinkings
+### Decomposition:
+Decomposition refers to breaking a task into smaller and addressable problems. In our codes for project 2, the skill of decomposition can be seen constantly in large, and smaller scales. For instance, when plotting the graphs of all 4 sensors with predictions, we decomposed the tasks into each sensor's average data, smoothing, plotting and the prediction calculation, as well as the plotting of the predictions. One sensor's plotting code can be used as an example shown below:
+
+```.py
+# room temperature
+room_temp=[]
+index=[]
+prediction_index=[]
+for temp_data in room_temp_data:
+    temp_datas = temp_data.strip()
+    values = temp_datas.split(",")
+    room_temp.append(float(values[4]))
+# smoothing data
+room_temp_smooth=smoothing(room_temp, 10)
+# create index for data
+for i in range(len(room_temp_smooth)):
+    index.append(i+1)
+# create index for prediction
+for i in range(ceil(len(index)*1.2)):
+    prediction_index.append(i+1)
+# calculate best fit polynomial
+p = np.poly1d(np.polyfit(index, room_temp_smooth, power))
+#start plotting graph
+plt.figure(figsize=(fig_width,fig_height))
+plt.subplot(4,1,1)
+plt.plot(room_temp_smooth)
+plt.plot(prediction_index,p(prediction_index), color="red")
+plt.title("Room Temperature")
+plt.ylabel("Average Temperature(°C)")
+plt.xlabel("Measures")
+```
 
 ### Pattern Recognition:
 For the codes of the smoothed average of the sensors, there was a lot of repetition when it came to requesting the data for each of the four sensors from the server as well as plotting the average. This decreases the efficiency and simplicity of the code. In order to fix this, multiple functions were defined in order to create a template for the requesting and analysis of the data. These were placed in a cumulative library as shown below. Then, we were able to call these functions and also utilize for loops and inline for loops in order to eradicate any unnecessary repetition in the code for each sensor. This is shown below. 
