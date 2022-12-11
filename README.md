@@ -193,6 +193,7 @@ Crontab utilization:
 The utilization of crontab, as shown below, allows the code to run every 5 minutes (therefore taking readings and posting them to the server consistently at the aforementioned interval) until the crontab is deleted. 
 
 <img width="776" alt="crontab" src="https://user-images.githubusercontent.com/100017195/206906756-9e9847ee-fc7d-41f9-a290-83ebf982f805.png">
+
 **Fig.6** shows the cron tab for controlling the program to run every 5 minutes.
 
 
@@ -650,7 +651,7 @@ plt.show()
 
 ## Scientific Poster
 ![ISAK Weather Station (2)](https://user-images.githubusercontent.com/111893043/206835329-92647e55-bd97-465c-99b8-709a56c15a5c.jpeg)
-**Fig.9** scientific poster summarizing the project.
+**Fig.10** scientific poster summarizing the project.
 
 A 7 min video demonstrating the proposed solution with narration
 
