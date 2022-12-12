@@ -302,7 +302,7 @@ for i in readings:
 ### merged graph - 4 sensors + average data - 1 data
 We established a **prototype** of how each data can be individually viewed from each sensors' outcomes and view the average of the data using room temperature sensors as an example. The code plots the graps of smoothed room temperature data from all 4 sensors and a larger graph of the average temperature datas. Sensor 6 is used as the example of code below.
 
-Smoothing and calculation of data:
+Smoothing and calculation of data of sensor 6:
 ```.py
 from matplotlib.gridspec import GridSpec
 from lib import smoothing, get_sensor, download_data
