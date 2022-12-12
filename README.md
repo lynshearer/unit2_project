@@ -393,6 +393,8 @@ plt.show()
 
 **Fig.9** shows the room and school temperature and humidity average data smoothed, with a polynomial best fit which extends 12 hours over the data collected for prediction with the calculated function of polynomial best fit displayed.
 
+After experimenting on different exponents of best fit polynomial functions. The higher the exponent is, although it fits the graph better, in the predictions the shape of the end gets way too steep. Thus, after experimenting, we discovered that the **cubic polynomial** best fit works the best.
+
 ### Max, min, mean, medium & standard deviation 
 This program aims to plot the maximum, minimum, medium values of the plotted mean values of data, and indicate the values with lines horizontal to the x-axis. The program also plots error bars to illustrate the dtandard deviation. Please refer to the code and graph plotted below.
 
@@ -435,6 +437,8 @@ plt.show()
 ![max, min, medium, stad](https://user-images.githubusercontent.com/100017195/207007875-3ef3238c-ce1d-41e0-8aaa-ed1bc961dbf4.jpeg)
 
 **Fig.10** shows the average smoothed data for school and room temperature and humidity with the extra data including maximum, minimum, mean, and an error bar graph displaying the standard deviation.
+
+The standard deviation did not vary much from one to the adjacent one because there is not much difference in the measurements between sensors since the sensors are quite close to each other on the limited space on the breadboard.
 
 # Criteria D: Functionality
 
