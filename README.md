@@ -197,7 +197,7 @@ The utilization of crontab, as shown below, allows the code to run every 5 minut
 **Fig.6** shows the cron tab for controlling the program to run every 5 minutes.
 
 
-## Code development
+## Prototype codes
 Below are the developments of the Python code being programmed for the project.
 ### Library
 To improve the simplicity of codes, we created a library of frequently used functions. Please refer to the code in the link.
