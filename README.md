@@ -77,10 +77,12 @@ We stored the temperature and humidity data  in both seperate database csv files
 | 18       | Coding prototype graphing for one specific data | To plot graphs from all sensors and the average of one specific data (room temperature) | 35 mins                 | Dec 09         | C
 | 19       | Upgrading the graphs with smoothing and prediction of the polynomial best fit | To plot smoothed data of sensors with a polynomial best fit which predicts the data 12 hours after the collected time.| 35 mins                 | Dec 10         | C
 | 20       | Graphs with additional data | To plot smoothed average data of sensors with maximum, minimum and mean value, with an error bar indicating the standard deviation of the mean data.| 15 mins                 | Dec 10         | C
-| 21       | Outline for video and compiling data and images to present the final product and solution. | To gather all information necessary in order to create an organized video presenting our product.| 120 mins                 | Dec 07-11         | D
+| 21       | Outline for video and compiling data and images to present the final product and solution. | To gather all information necessary in order to create an organized video presenting our product.| 240 mins                 | Dec 07-11         | D
 | 22       | Create scientific poster. | To clearly present the background information, methodologies, materials, results, analysis and conclusion for the client.| 120 mins                 | Dec 07-11         | D
 | 23       | Update show your CT | To update a pattern recognition and decomposition for computer thinking skills. | 15 mins                 | Dec 11         | C
 | 24       | How data is stored | Upload short desctiption on how the data collected were stored | 3 mins                 | Dec 11         | B
+| 25       | Video Creation | Demonstrate the product, describe how product met success critera and explain project clearly. | 20 mins                 | Dec 12         | D
+| 26       | Finish updating project repository. | Compile all necessary information on the repository in order to submit. | 60 mins                 | Dec 12         | B
 
 ## Test Plan
 | Software Test Type | Input | Process | Planned Output  |
@@ -443,11 +445,14 @@ The standard deviation did not vary much from one to the adjacent one because th
 # Criteria D: Functionality
 
 ## Scientific Poster
-![ISAK Weather Station (3)](https://user-images.githubusercontent.com/100017195/206965849-d7207cda-54c0-4d0e-9859-6780ee284f35.png)
+![ISAK Weather Station (4)](https://user-images.githubusercontent.com/111893043/207023819-cecf5274-a90b-4736-a3e9-4f76f4bb264b.jpeg)
 
 **Fig.11** scientific poster summarizing the project.
 
-A 7 min video demonstrating the proposed solution with narration
+## Product Demonstration and Solution Video
+
+Link: https://www.youtube.com/watch?v=QiUVtDPWlZ8
+
 
 [^0]: Cherry Pie Apple Pie Raspberry Pi Meme https://www.imagesplatform.com/post/cherry-pie-apple-pie-raspberry-pi-meme-vkE87
 [^1]: Industries, Adafruit. “DHT11 Basic Temperature-Humidity Sensor + Extras.” Adafruit Industries Blog RSS, https://www.adafruit.com/product/386. 
