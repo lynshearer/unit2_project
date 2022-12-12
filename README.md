@@ -227,7 +227,7 @@ for pin in PINS:
 ```
 
 ### Server initialization
-Logging in, registering and creating 8 sensors in the server. Code is as below:
+Logging in, registering and creating different sensors in the server. Code is as below:
 ```.py
 import requests
 # username+password
@@ -242,40 +242,17 @@ req=requests.post('http://192.168.6.142/login',json=user)
 access_token = req.json()['access_token']
 print(f"token: {access_token}")
 
-# add temperature sensor 1
+# add 1 temperature sensor
 auth = {'Authorization':f"Bearer {access_token}"}
 new_sensor = {"type": "Temperature", "location": "R3-10A", "name": "temp_lyn_kris_1","unit":"C"}
 r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
 print(r.json())
-# add temperature sensor 2
-new_sensor = {"type": "Temperature", "location": "R3-10A", "name": "temp_lyn_kris_2","unit":"C"}
-r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
-print(r.json())
-# add temperature sensor 3
-new_sensor = {"type": "Temperature", "location": "R3-10A", "name": "temp_lyn_kris_3","unit":"C"}
-r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
-print(r.json())
-# add temperature sensor 4
-new_sensor = {"type": "Temperature", "location": "R3-10A", "name": "temp_lyn_kris_4","unit":"C"}
-r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
-print(r.json())
 
-# add humidity sensor 1
+# add 1 humidity sensor
 new_sensor = {"type": "Humidity", "location": "R3-10A", "name": "hum_lyn_kris_1","unit":"%"}
 r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
 print(r.json())
-# add humidity sensor 2
-new_sensor = {"type": "Humidity", "location": "R3-10A", "name": "hum_lyn_kris_2","unit":"%"}
-r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
-print(r.json())
-# add humidity sensor 3
-new_sensor = {"type": "Humidity", "location": "R3-10A", "name": "hum_lyn_kris_3","unit":"%"}
-r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
-print(r.json())
-# add humidity sensor 4
-new_sensor = {"type": "Humidity", "location": "R3-10A", "name": "hum_lyn_kris_4","unit":"%"}
-r= requests.post('http://192.168.6.142/sensor/new',json=new_sensor, headers = auth)
-print(r.json())
+
 ```
 
 ### Get data from school server
@@ -304,9 +281,9 @@ for i in readings:
 ```
 
 ### merged graph - 4 sensors + average data - 1 data
-We established a prototype of how each data can be individually viewed from each sensors' outcomes and view the average of the data using room temperature sensors as an example. The code plots the graps of smoothed room temperature data from all 4 sensors and a larger graph of the average temperature datas.
-Please refer to the code and graph plotted below:
+We established a **prototype** of how each data can be individually viewed from each sensors' outcomes and view the average of the data using room temperature sensors as an example. The code plots the graps of smoothed room temperature data from all 4 sensors and a larger graph of the average temperature datas. Sensor 6 is used as the example of code below.
 
+Smoothing and calculation of data:
 ```.py
 from matplotlib.gridspec import GridSpec
 from lib import smoothing, get_sensor, download_data
@@ -314,38 +291,19 @@ import requests
 import matplotlib.pyplot as plt
 import numpy as np
 readings=download_data()
-sensors=[6,8,9,10]
 
 data_6=[]
-data_8=[]
-data_9=[]
-data_10=[]
-
 
 data_6=get_sensor(readings,6)
-data_8=get_sensor(readings,8)
-data_9=get_sensor(readings,9)
-data_10=get_sensor(readings,10)
-
 
 data_6=data_6[0:499]
-data_8=data_8[0:499]
-data_9=data_9[0:499]
-data_10=data_10[0:499]
 
-#average of 4 sensors
-average=[]
-for i in range(0,499):
-    average.append((data_6[i]+data_8[i]+data_9[i]+data_10[i])/4)
-
-#smoothing data of 12 samples
 data_6_smooth=smoothing(data_6,10)
-data_8_smooth=smoothing(data_8,10)
-data_9_smooth=smoothing(data_9,10)
-data_10_smooth=smoothing(data_10,10)
-average_smooth=smoothing(average,10)
+```
 
-#plotting the data
+Plotting graphs in boxes:
+```.py
+# plotting the data 
 # style of graph
 plt.style.use('seaborn-whitegrid')
 fig=plt.figure(figsize=(10,8))
@@ -373,6 +331,7 @@ plt.show()
 
 ### Polynomial fit with predictions
 This program aims to plot the **smoothed** average data and plot a **polynomial best fit**, which **predicts** the datas for 12 hours after the collected data ends. Please refer to the code and graphs plotted below.
+This code is a prototype of one data sensor (room temperature).
 
 ```.py
 # this program plots the data from the csv files
@@ -382,14 +341,8 @@ import numpy as np
 from lib import smoothing
 from math import ceil
 
-with open("room_hum.csv", "r") as file:
-    room_hum_data = file.readlines()
 with open("room_temp.csv", "r") as file:
     room_temp_data = file.readlines()
-with open("school_humidity.csv", "r") as file:
-    school_hum_data = file.readlines()
-with open("school_temperature.csv", "r") as file:
-    school_temp_data = file.readlines()
 
 fig_width= 15
 fig_height= 25
@@ -422,80 +375,16 @@ plt.title("Room Temperature")
 plt.ylabel("Average Temperature(°C)")
 plt.xlabel("Measures")
 
-# room humidity
-room_hum=[]
-for hum_data in room_hum_data:
-    hum_datas = hum_data.strip()
-    values = hum_datas.split(",")
-    room_hum.append(float(values[4]))
-# smoothing data
-room_hum_smooth=smoothing(room_hum, 10)
-# polynomial fit
-p = np.poly1d(np.polyfit(index, room_hum_smooth, power))
-# start plotting graph
-plt.subplot(4,1,2)
-plt.plot(index,room_hum_smooth)
-plt.plot(prediction_index,p(prediction_index), color="red")
-plt.title("Room Humidity")
-plt.ylabel("Average Humidity(%)")
-plt.xlabel("Measures")
-
-
-# school temperature
-school_temp=[]
-index=[]
-prediction_index=[]
-for school_temp_datas in school_temp_data:
-    school_temp_datas = school_temp_datas.strip()
-    values = school_temp_datas.split(",")
-    school_temp.append(float(values[1]))
-school_temp.pop()
-# smoothing data
-school_temp_smooth=smoothing(school_temp, 10)
-# create index for data
-for i in range(len(school_temp_smooth)):
-    index.append(i+1)
-# create index for prediction
-for i in range(ceil(len(index)*1.2)):
-    prediction_index.append(i+1)
-# calculate best fit polynomial
-p = np.poly1d(np.polyfit(index, school_temp_smooth, power))
-# start plotting
-plt.subplot(4,1,3)
-plt.plot(index,school_temp_smooth)
-plt.plot(prediction_index,p(prediction_index), color="red")
-plt.title("School Temperature")
-plt.ylabel("Average Temperature(°C)")
-plt.xlabel("Measures")
-
-# school humidity
-school_hum=[]
-for school_hum_datas in school_hum_data:
-    school_hum_datas = school_hum_datas.strip()
-    values = school_hum_datas.split(",")
-    school_hum.append(float(values[1]))
-school_hum.pop()
-# smoothing data
-school_hum_smooth=smoothing(school_hum, 10)
-# calculate best fit polynomial
-p = np.poly1d(np.polyfit(index, school_hum_smooth, power))
-# start plotting
-plt.subplot(4,1,4)
-plt.plot(index,school_hum_smooth)
-# plot prediction best fit polynomial
-plt.plot(prediction_index,p(prediction_index), color="red")
-plt.title("School Humidity")
-plt.ylabel("Average Humidity(%)")
-plt.xlabel("Measures")
-
 plt.show()
 ```
+
 ![predictions](https://user-images.githubusercontent.com/100017195/206832657-5ba64cf1-1e0e-4c59-aa04-6962159aad43.jpeg)
 **Fig.8** shows the room and school temperature and humidity average data smoothed, with a polynomial best fit which extends 12 hours over the data collected for prediction.
 
 
 ### Max, min, mean, medium & standard deviation 
 This program aims to plot the maximum, minimum, medium values of the plotted mean values of data, and indicate the values with lines horizontal to the x-axis. The program also plots error bars to illustrate the dtandard deviation. Please refer to the code and graph plotted below.
+This is a prototype processing with an example sensor of room temperature.
 
 ```.py
 # this program plots the data from the csv files and
@@ -507,14 +396,8 @@ import numpy as np
 from lib import smoothing
 from math import ceil
 
-with open("room_hum.csv", "r") as file:
-    room_hum_data = file.readlines()
 with open("room_temp.csv", "r") as file:
     room_temp_data = file.readlines()
-with open("school_humidity.csv", "r") as file:
-    school_hum_data = file.readlines()
-with open("school_temperature.csv", "r") as file:
-    school_temp_data = file.readlines()
 
 fig_width= 15
 fig_height= 25
@@ -549,84 +432,6 @@ plt.axhline(y=np.mean(room_temp_smooth), color="orange")
 std_dev = np.std(room_temp_smooth)
 # plot error bars
 plt.errorbar(index, room_temp_smooth, yerr=std_dev, fmt='o', color="lightblue")
-
-# room humidity
-room_hum=[]
-for hum_data in room_hum_data:
-    hum_datas = hum_data.strip()
-    values = hum_datas.split(",")
-    room_hum.append(float(values[4]))
-# smoothing data
-room_hum_smooth=smoothing(room_hum, 10)
-# start plotting
-plt.subplot(4,1,2)
-plt.plot(index,room_hum_smooth)
-plt.title("Room Humidity")
-plt.ylabel("Average Humidity(%)")
-plt.xlabel("Measures")
-# plot maximum, minimum, mean
-plt.axhline(y=max(room_hum_smooth), color="red")
-plt.axhline(y=min(room_hum_smooth), color="green")
-plt.axhline(y=np.mean(room_hum_smooth), color="orange")
-# calculate standard deviation
-std_dev = np.std(room_hum_smooth)
-# plot error bars
-plt.errorbar(index, room_hum_smooth, yerr=std_dev, fmt='o', color="lightblue")
-
-
-# school temperature
-school_temp=[]
-index=[]
-prediction_index=[]
-for school_temp_datas in school_temp_data:
-    school_temp_datas = school_temp_datas.strip()
-    values = school_temp_datas.split(",")
-    school_temp.append(float(values[1]))
-school_temp.pop()
-# smoothing data
-school_temp_smooth=smoothing(school_temp, 10)
-# create index for data
-for i in range(len(school_temp_smooth)):
-    index.append(i+1)
-# start plotting
-plt.subplot(4,1,3)
-plt.plot(index,school_temp_smooth)
-plt.title("School Temperature")
-plt.ylabel("Average Temperature(°C)")
-plt.xlabel("Measures")
-# plot maximum, minimum, mean
-plt.axhline(y=max(school_temp_smooth), color="red")
-plt.axhline(y=min(school_temp_smooth), color="green")
-plt.axhline(y=np.mean(school_temp_smooth), color="orange")
-# calculate standard deviation
-std_dev = np.std(school_temp_smooth)
-# plot error bars
-plt.errorbar(index, school_temp_smooth, yerr=std_dev, fmt='o', color="lightblue")
-
-
-# school humidity
-school_hum=[]
-for school_hum_datas in school_hum_data:
-    school_hum_datas = school_hum_datas.strip()
-    values = school_hum_datas.split(",")
-    school_hum.append(float(values[1]))
-school_hum.pop()
-# smoothing data
-school_hum_smooth=smoothing(school_hum, 10)
-plt.subplot(4,1,4)
-plt.plot(index,school_hum_smooth)
-plt.title("School Humidity")
-plt.ylabel("Average Humidity(%)")
-plt.xlabel("Measures")
-# plot maximum, minimum, mean
-plt.axhline(y=max(school_hum_smooth), color="red")
-plt.axhline(y=min(school_hum_smooth), color="green")
-plt.axhline(y=np.mean(school_hum_smooth), color="orange")
-# calculate standard deviation
-std_dev = np.std(school_hum_smooth)
-# plot error bars
-plt.errorbar(index, school_hum_smooth, yerr=std_dev, fmt='o', color="lightblue")
-
 plt.show()
 ```
 ![max_min_stad_medium](https://user-images.githubusercontent.com/100017195/206835085-04297569-8d36-4a23-99ec-ca689cbb9758.jpeg)
