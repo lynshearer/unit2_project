@@ -451,7 +451,7 @@ The standard deviation did not vary much from one to the adjacent one because th
 
 ## Product Demonstration and Solution Video
 
-Link: https://www.youtube.com/watch?v=QiUVtDPWlZ8
+
 
 
 [^0]: Cherry Pie Apple Pie Raspberry Pi Meme https://www.imagesplatform.com/post/cherry-pie-apple-pie-raspberry-pi-meme-vkE87
