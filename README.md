@@ -222,9 +222,6 @@ def smoothing(data:list,size_window:int=12):
     return data_smooth
 ```
 
-
-
-
 ### MVP-Minimum Viable Product
 We created a MVP as a prototype of how the temperature and humidity data can be measured and collected. The MVP runs on Python code on Raspberry Pi which is connected to one DHT sensor. The code allows the Raspberry Pi to read one set of temperature and humidity data from the DHT sensor, and display the data as an output in the terminal. For more details, please refer to the Python code below.
 
@@ -298,19 +295,36 @@ for i in readings:
             writer = csv.writer(file)
             writer.writerow([i['datetime'],i['value']])
 ```
+### raw data plotting
+The code below shows how one raw data is accessed and plotted in a scatterplot. The graph is shown below.
+```.py
+room_temp=[]
+index=[]
+count=1
+for temp_data in room_temp_data:
+    temp_datas = temp_data.strip()
+    values = temp_datas.split(",")
+    room_temp.append(float(values[4]))
+    index.append(count)
+    count+=1
+#start plotting graph
+plt.figure(figsize=(fig_width,fig_height))
+plt.subplot(4,1,1)
+plt.scatter(index,room_temp)
+plt.title("Room Temperature")
+plt.ylabel("Average Temperature(°C)")
+plt.xlabel("Measures")
+```
+![raw_data_scatter](https://user-images.githubusercontent.com/100017195/206965706-ceee1b75-40ed-4c77-9102-ad9daa196d04.jpeg)
+
+**Fig.7** shows the raw datas of average plotted in scatter plots.
 
 ### merged graph - 4 sensors + average data - 1 data
 We established a **prototype** of how each data can be individually viewed from each sensors' outcomes and view the average of the data using room temperature sensors as an example. The code plots the graps of smoothed room temperature data from all 4 sensors and a larger graph of the average temperature datas. Sensor 6 is used as the example of code below.
 
-Smoothing and calculation of data of sensor 6:
-```.py
-from matplotlib.gridspec import GridSpec
-from lib import smoothing, get_sensor, download_data
-import requests
-import matplotlib.pyplot as plt
-import numpy as np
-readings=download_data()
+Smoothing (using smoothing functions in the library) and calculation of data of sensor 6:
 
+```.py
 data_6=[]
 
 data_6=get_sensor(readings,6)
@@ -320,7 +334,7 @@ data_6=data_6[0:499]
 data_6_smooth=smoothing(data_6,10)
 ```
 
-Plotting graphs in boxes:
+Plotting graphs in **boxes**:
 ```.py
 # plotting the data 
 # style of graph
@@ -345,104 +359,46 @@ for i in range(len(sensors)):
     plt.ylabel("Temperature in Celsius")
 plt.show()
 ```
+
 ![4+1_data](https://user-images.githubusercontent.com/100017195/206707974-d5a1d7d6-fb11-493e-9684-c96a13daf260.jpeg)
-**Fig.7** shows the prototype graph plotted with 4 separate sensor datas and one large graph of average data for room temperature.
+**Fig.8** shows the prototype graph plotted with 4 separate sensor datas and one large graph of average data for room temperature.
 
 ### Polynomial fit with predictions
 This program aims to plot the **smoothed** average data and plot a **polynomial best fit**, which **predicts** the datas for 12 hours after the collected data ends. Please refer to the code and graphs plotted below.
-This code is a prototype of one data sensor (room temperature).
+
+Calculation of polynomial of best fit:
 
 ```.py
-# this program plots the data from the csv files
-from scipy.optimize import curve_fit
-import matplotlib.pyplot as plt
-import numpy as np
-from lib import smoothing
-from math import ceil
+p = np.poly1d(np.polyfit(index, room_temp_smooth, power))
+```
 
-with open("room_temp.csv", "r") as file:
-    room_temp_data = file.readlines()
+Plotting existing data and the best fit that extends out side of the data for prediction
 
-fig_width= 15
-fig_height= 25
-power=3
-
-# room temperature
-room_temp=[]
-index=[]
-prediction_index=[]
-for temp_data in room_temp_data:
-    temp_datas = temp_data.strip()
-    values = temp_datas.split(",")
-    room_temp.append(float(values[4]))
-# smoothing data
-room_temp_smooth=smoothing(room_temp, 10)
+```.py
 # create index for data
 for i in range(len(room_temp_smooth)):
     index.append(i+1)
-# create index for prediction
+# create a separate index for prediction
 for i in range(ceil(len(index)*1.2)):
     prediction_index.append(i+1)
-# calculate best fit polynomial
-p = np.poly1d(np.polyfit(index, room_temp_smooth, power))
-#start plotting graph
-plt.figure(figsize=(fig_width,fig_height))
-plt.subplot(4,1,1)
+
+# plot the data and prediction with the respective index
 plt.plot(room_temp_smooth)
 plt.plot(prediction_index,p(prediction_index), color="red")
-plt.title("Room Temperature")
-plt.ylabel("Average Temperature(°C)")
-plt.xlabel("Measures")
 
 plt.show()
 ```
 
 ![Image 2022-12-12 at 13 44](https://user-images.githubusercontent.com/100017195/206962654-31575e14-2274-4016-99d3-addd8330d691.jpeg)
 
-**Fig.8** shows the room and school temperature and humidity average data smoothed, with a polynomial best fit which extends 12 hours over the data collected for prediction with the calculated function of polynomial best fit displayed.
+**Fig.9** shows the room and school temperature and humidity average data smoothed, with a polynomial best fit which extends 12 hours over the data collected for prediction with the calculated function of polynomial best fit displayed.
 
 ### Max, min, mean, medium & standard deviation 
 This program aims to plot the maximum, minimum, medium values of the plotted mean values of data, and indicate the values with lines horizontal to the x-axis. The program also plots error bars to illustrate the dtandard deviation. Please refer to the code and graph plotted below.
-This is a prototype processing with an example sensor of room temperature.
+
+This is an example code of how to plot minimum, maximum, mean, and standard deviation as error bar
 
 ```.py
-# this program plots the data from the csv files and
-# plots statistics such as maximum,
-# minimum, mean and standard deviation
-from scipy.optimize import curve_fit
-import matplotlib.pyplot as plt
-import numpy as np
-from lib import smoothing
-from math import ceil
-
-with open("room_temp.csv", "r") as file:
-    room_temp_data = file.readlines()
-
-fig_width= 15
-fig_height= 25
-
-power=3
-
-# room temperature
-room_temp=[]
-index=[]
-prediction_index=[]
-for temp_data in room_temp_data:
-    temp_datas = temp_data.strip()
-    values = temp_datas.split(",")
-    room_temp.append(float(values[4]))
-# smoothing data
-room_temp_smooth=smoothing(room_temp, 10)
-# create index for data
-for i in range(len(room_temp_smooth)):
-    index.append(i+1)
-#start plotting graph
-plt.figure(figsize=(fig_width,fig_height))
-plt.subplot(4,1,1)
-plt.plot(room_temp_smooth)
-plt.title("Room Temperature")
-plt.ylabel("Average Temperature(°C)")
-plt.xlabel("Measures")
 # plot maximum, minimum, mean
 plt.axhline(y=max(room_temp_smooth), color="red")
 plt.axhline(y=min(room_temp_smooth), color="green")
@@ -454,13 +410,14 @@ plt.errorbar(index, room_temp_smooth, yerr=std_dev, fmt='o', color="lightblue")
 plt.show()
 ```
 ![max_min_stad_medium](https://user-images.githubusercontent.com/100017195/206835085-04297569-8d36-4a23-99ec-ca689cbb9758.jpeg)
-**Fig.9** shows the average smoothed data for school and room temperature and humidity with the extra data including maximum, minimum, mean, and an error bar graph displaying the standard deviation.
+**Fig.10** shows the average smoothed data for school and room temperature and humidity with the extra data including maximum, minimum, mean, and an error bar graph displaying the standard deviation.
 
 # Criteria D: Functionality
 
 ## Scientific Poster
-![ISAK Weather Station (2)](https://user-images.githubusercontent.com/111893043/206835329-92647e55-bd97-465c-99b8-709a56c15a5c.jpeg)
-**Fig.10** scientific poster summarizing the project.
+![ISAK Weather Station (3)](https://user-images.githubusercontent.com/100017195/206965849-d7207cda-54c0-4d0e-9859-6780ee284f35.png)
+
+**Fig.11** scientific poster summarizing the project.
 
 A 7 min video demonstrating the proposed solution with narration
 
