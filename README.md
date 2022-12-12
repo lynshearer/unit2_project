@@ -397,9 +397,9 @@ plt.xlabel("Measures")
 plt.show()
 ```
 
-![predictions](https://user-images.githubusercontent.com/100017195/206832657-5ba64cf1-1e0e-4c59-aa04-6962159aad43.jpeg)
-**Fig.8** shows the room and school temperature and humidity average data smoothed, with a polynomial best fit which extends 12 hours over the data collected for prediction.
+![Image 2022-12-12 at 13 44](https://user-images.githubusercontent.com/100017195/206962654-31575e14-2274-4016-99d3-addd8330d691.jpeg)
 
+**Fig.8** shows the room and school temperature and humidity average data smoothed, with a polynomial best fit which extends 12 hours over the data collected for prediction with the calculated function of polynomial best fit displayed.
 
 ### Max, min, mean, medium & standard deviation 
 This program aims to plot the maximum, minimum, medium values of the plotted mean values of data, and indicate the values with lines horizontal to the x-axis. The program also plots error bars to illustrate the dtandard deviation. Please refer to the code and graph plotted below.
