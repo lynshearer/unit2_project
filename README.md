@@ -315,7 +315,7 @@ plt.title("Room Temperature")
 plt.ylabel("Average Temperature(°C)")
 plt.xlabel("Measures")
 ```
-![raw_data_scatter](https://user-images.githubusercontent.com/100017195/206965706-ceee1b75-40ed-4c77-9102-ad9daa196d04.jpeg)
+![raw](https://user-images.githubusercontent.com/100017195/207007472-2f0c45c0-a039-4415-b916-752170f89ebf.jpeg)
 
 **Fig.7** shows the raw datas of average plotted in scatter plots.
 
@@ -388,8 +388,8 @@ plt.plot(prediction_index,p(prediction_index), color="red")
 
 plt.show()
 ```
+![prediction_with_equation](https://user-images.githubusercontent.com/100017195/207009283-f8ed823f-69cb-434d-ab0f-27f1f3decae5.jpeg)
 
-![Image 2022-12-12 at 13 44](https://user-images.githubusercontent.com/100017195/206962654-31575e14-2274-4016-99d3-addd8330d691.jpeg)
 
 **Fig.9** shows the room and school temperature and humidity average data smoothed, with a polynomial best fit which extends 12 hours over the data collected for prediction with the calculated function of polynomial best fit displayed.
 
@@ -403,13 +403,37 @@ This is an example code of how to plot minimum, maximum, mean, and standard devi
 plt.axhline(y=max(room_temp_smooth), color="red")
 plt.axhline(y=min(room_temp_smooth), color="green")
 plt.axhline(y=np.mean(room_temp_smooth), color="orange")
-# calculate standard deviation
-std_dev = np.std(room_temp_smooth)
-# plot error bars
+```
+
+calculate standard deviation
+```.py
+std_dev=[]
+sensor1=[]
+sensor2=[]
+sensor3=[]
+sensor4=[]
+for temp_data in room_temp_data:
+    sensor1.append(float(values[0]))
+    sensor2.append(float(values[1]))
+    sensor3.append(float(values[2]))
+    sensor4.append(float(values[3]))
+# smoothing
+sm1=smoothing(sensor1,10)
+sm2=smoothing(sensor2,10)
+sm3=smoothing(sensor3,10)
+sm4=smoothing(sensor4,10)
+
+for i in range(len(sm1)):
+    datas=[sm1[i],sm2[i],sm3[i],sm4[i]]
+    std_dev.append(np.std(datas))
+
+
 plt.errorbar(index, room_temp_smooth, yerr=std_dev, fmt='o', color="lightblue")
 plt.show()
 ```
-![max_min_stad_medium](https://user-images.githubusercontent.com/100017195/206835085-04297569-8d36-4a23-99ec-ca689cbb9758.jpeg)
+
+![max, min, medium, stad](https://user-images.githubusercontent.com/100017195/207007875-3ef3238c-ce1d-41e0-8aaa-ed1bc961dbf4.jpeg)
+
 **Fig.10** shows the average smoothed data for school and room temperature and humidity with the extra data including maximum, minimum, mean, and an error bar graph displaying the standard deviation.
 
 # Criteria D: Functionality
