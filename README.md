@@ -31,7 +31,8 @@ Considering the budgetary constrains of the client and the hardware requirements
 
 ## System Diagram
 
-![sysdim_hl](https://user-images.githubusercontent.com/100017195/207243642-956054c9-8e5b-4cbe-b165-9fe626dac234.png)
+![無題の図形描画](https://user-images.githubusercontent.com/111893043/207256364-cf88bc5c-193f-4f24-a96a-b63bcdd0c2ee.jpg)
+
 
 
 **Fig.2** shows the system diagram for the proposed solution (**HL**). The indoor variables will be measured using a Raspberry PI and four DHT11 sensors located inside a room. Four sensors are used to determine more precisely the physical values and include measurement uncertainty. The outdoor variables will be requested to the remote server using a GET request to the API of the server at ```192.168.6.147/readings```. The local values are stored in a CSV database locally and POST to the server using the API and TOKEN authentication. A laptop computer is used for remotely controlling the local Rasberry Pi using a Dekptop sharing application (VNC Viewer). Data from the local raspberry is downloaded to the laptop for analysis and processing.
@@ -448,7 +449,8 @@ The standard deviation did not vary much from one to the adjacent one because th
 # Criteria D: Functionality
 
 ## Scientific Poster
-![ISAK Weather Station (4)](https://user-images.githubusercontent.com/111893043/207023819-cecf5274-a90b-4736-a3e9-4f76f4bb264b.jpeg)
+![ISAK Weather Station (6)](https://user-images.githubusercontent.com/111893043/207256433-bbb6cae9-c367-438f-a3b2-70621b0ddb44.png)
+
 
 **Fig.11** scientific poster summarizing the project.
 
