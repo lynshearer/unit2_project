@@ -30,10 +30,7 @@ Considering the budgetary constrains of the client and the hardware requirements
 # Criteria B: Design
 
 ## System Diagram
-
-![無題の図形描画](https://user-images.githubusercontent.com/111893043/207256364-cf88bc5c-193f-4f24-a96a-b63bcdd0c2ee.jpg)
-
-
+![Screen Shot 2022-12-13 at 16 47 27](https://user-images.githubusercontent.com/111893043/207256774-c75ec2de-c5bb-44ad-8e53-7e936cd8cc5d.jpeg)
 
 **Fig.2** shows the system diagram for the proposed solution (**HL**). The indoor variables will be measured using a Raspberry PI and four DHT11 sensors located inside a room. Four sensors are used to determine more precisely the physical values and include measurement uncertainty. The outdoor variables will be requested to the remote server using a GET request to the API of the server at ```192.168.6.147/readings```. The local values are stored in a CSV database locally and POST to the server using the API and TOKEN authentication. A laptop computer is used for remotely controlling the local Rasberry Pi using a Dekptop sharing application (VNC Viewer). Data from the local raspberry is downloaded to the laptop for analysis and processing.
 
