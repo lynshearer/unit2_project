@@ -439,6 +439,7 @@ plt.show()
 ![max, min, medium, stad](https://user-images.githubusercontent.com/100017195/207007875-3ef3238c-ce1d-41e0-8aaa-ed1bc961dbf4.jpeg)
 
 **Fig.10** shows the average smoothed data for school and room temperature and humidity with the extra data including maximum, minimum, mean, and an error bar graph displaying the standard deviation.
+Since for the school sensors there is only one for each data, but there are 4 sensors in the room. We could only plot the standard deviations for room sensors but not for the school sensors.
 
 The standard deviation did not vary much from one to the adjacent one because there is not much difference in the measurements between sensors since the sensors are quite close to each other on the limited space on the breadboard.
 
